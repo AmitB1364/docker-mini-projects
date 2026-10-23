@@ -93,6 +93,10 @@ docker tag ubuntu-apache-installed:latest ghcr.io/YOUR_GITHUB_USERNAME/ubuntu-ap
 Step 4: Push the Image to GitHub
 docker push ghcr.io/amitb1364/ubuntu-apache-installed:latest 
 
-Where to find it on GitHub
+
+Where to find container image it on GitHub
 Once the transfer completes, navigate to your GitHub profile and click on the Packages tab along the top navigation bar (next to Repositories).
+
+Install from the command line
+docker pull ghcr.io/amitb1364/ubuntu-apache-installed:latest
 
