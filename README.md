@@ -76,5 +76,23 @@ docker exec -it web-app /bin/bash
 # Commit container changes to a new image tag
 docker commit web-app my-custom-webserver:v2
 
+# Push local custom docker image to github
 
+Step 1: Create a GitHub Personal Access Token (PAT)
+Docker cannot use your regular GitHub password to authenticate via the command line. You need a token
+2. Click Generate new token (classic).
+3. Give it a descriptive name and select the write:packages scope (this will automatically select read:packages as well).
+4. Click Generate token and copy it immediately (you won't be able to see it again).
+
+Step 2: Authenticate via Terminal
+echo "YOUR_PERSONAL_ACCESS_TOKEN" | docker login ghcr.io -u YOUR_GITHUB_USERNAME --password-stdin
+
+Step 3: Tag Your Local Image
+docker tag ubuntu-apache-installed:latest ghcr.io/YOUR_GITHUB_USERNAME/ubuntu-apache-installed:latest
+
+Step 4: Push the Image to GitHub
+docker push ghcr.io/amitb1364/ubuntu-apache-installed:latest 
+
+Where to find it on GitHub
+Once the transfer completes, navigate to your GitHub profile and click on the Packages tab along the top navigation bar (next to Repositories).
 
