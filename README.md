@@ -32,5 +32,49 @@ This repository demonstrates practical container management workflows:
 
 1. **Clone the repository:**
    ```bash
-   git clone [https://github.com/YOUR_USERNAME/docker-mini-project.git](https://github.com/YOUR_USERNAME/docker-mini-project.git)
+   git clone [https://github.com/YOUR_USERNAME/docker-mini-project.git]
    cd docker-mini-project
+
+Create a Dockerfile :
+# Use the official Ubuntu image
+FROM ubuntu:latest
+
+# Copy your webpage into html public folder
+COPY my-index.html /var/www/html/
+
+# Expose port 80 to the outside world
+EXPOSE 80
+
+# Install Apache (Build Phase)
+RUN apt-get update && \
+    apt-get install -y apache2 && \
+    rm -rf /var/lib/apt/lists/*
+
+# Start Apache in the foreground (Runtime Phase)
+CMD ["apache2ctl", "-D", "FOREGROUND"]
+
+
+Build the custom Docker image:
+docker build -t ubuntu .
+
+Run container with a bind mount for live web updates:
+docker run -d -p 7070:80 -v /Users/amitb/ami-docker:/var/www/html --name ubuntu-mount ubuntu-apache-installed sleep infinity
+
+Verify the application:
+http://localhost:7070/my-index.html
+&
+http://localhost:7070
+
+
+Key Docker Commands Used
+# Check running containers
+docker ps
+
+# Shell into the active container
+docker exec -it web-app /bin/bash
+
+# Commit container changes to a new image tag
+docker commit web-app my-custom-webserver:v2
+
+
+
